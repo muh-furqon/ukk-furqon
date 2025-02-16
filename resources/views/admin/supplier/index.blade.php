@@ -29,12 +29,11 @@
                     <td class="border p-2">{{ $supplier->alamat_supplier }}</td>
                     <td class="border p-2">{{ $supplier->no_telp }}</td>
                     <td class="border p-2 space-x-2">
-                        <a href="{{ route('suppliers.show', $supplier->id) }}" class="bg-gray-500 text-white px-2 py-1 rounded">Lihat</a>
-                        <a href="{{ route('suppliers.edit', $supplier->id) }}" class="bg-yellow-500 text-white px-2 py-1 rounded">Edit</a>
-                        <form action="{{ route('suppliers.destroy', $supplier->id) }}" method="POST" class="inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded" onclick="return confirm('Hapus supplier ini?')">Hapus</button>
+                        <a href="{{ route('suppliers.show', $supplier->id) }}" class="bg-green-500 text-white px-3 py-1 rounded">Lihat</a>
+                        <a href="{{ route('suppliers.edit', $supplier->id) }}" class="bg-yellow-500 text-white px-3 py-1 rounded">Edit</a>
+                        <form action="{{ route('suppliers.destroy', $supplier->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Hapus supplier ini?');">
+                            @csrf @method('DELETE')
+                            <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded">Hapus</button>
                         </form>
                     </td>
                 </tr>
