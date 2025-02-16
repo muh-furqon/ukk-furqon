@@ -29,6 +29,6 @@ class ProductController extends Controller
         $products = $query->with('kategori')->get();
         $categories = Kategori::all();
 
-        return view('member.produk.index', compact('products', 'categories'));
+        return view('member.index', compact('products', 'categories'));
     }
 }
