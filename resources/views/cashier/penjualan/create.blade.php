@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.cashier')
 
 @section('content')
 <div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
@@ -37,11 +37,13 @@
                 <select name="barang_id[]" required class="p-2 border flex-1">
                     <option value="">Pilih Barang</option>
                     @foreach ($barangs as $barang)
-                        <option value="{{ $barang->id }}">{{ $barang->nama_barang }} (Stok: {{ $barang->stok }})</option>
+                        <option value="{{ $barang->id }}" data-harga="{{ $barang->harga }}">
+                            {{ $barang->nama_barang }} (Stok: {{ $barang->stok }})
+                        </option>
                     @endforeach
                 </select>
                 <input type="number" name="jumlah[]" required placeholder="Jumlah" class="p-2 border rounded w-20" min="1" oninput="updateTotal()">
-                <input type="number" name="sub_total[]" required placeholder="Subtotal" class="p-2 border rounded w-24" readonly>
+                <input type="number" name="sub_total[]" required placeholder="Subtotal" class="p-2 border rounded w-24 bg-gray-100" readonly>
                 <button type="button" class="remove-barang text-red-500 font-bold">✖</button>
             </div>
         </div>
@@ -51,6 +53,16 @@
         <div class="mb-4">
             <label class="block font-medium">Total Pembayaran</label>
             <input type="number" name="total_bayar" id="total" required class="w-full p-2 border rounded bg-gray-100" readonly>
+        </div>
+
+        <div class="mb-4">
+            <label class="block font-medium">Jumlah Dibayar</label>
+            <input type="number" name="total_dibayar" id="total_dibayar" required class="w-full p-2 border rounded" min="0" oninput="updateKembalian()">
+        </div>
+
+        <div class="mb-4">
+            <label class="block font-medium">Kembalian</label>
+            <input type="number" name="kembalian" id="kembalian" required class="w-full p-2 border rounded bg-gray-100" readonly>
         </div>
 
         <div class="mb-4">
@@ -74,7 +86,7 @@ function updateTotal() {
     document.querySelectorAll('.barang-item').forEach(item => {
         let jumlah = item.querySelector('input[name="jumlah[]"]').value || 0;
         let barangSelect = item.querySelector('select[name="barang_id[]"]');
-        let harga = barangSelect.options[barangSelect.selectedIndex].dataset.harga || 0;
+        let harga = barangSelect.options[barangSelect.selectedIndex]?.dataset.harga || 0;
         let subtotal = jumlah * harga;
 
         item.querySelector('input[name="sub_total[]"]').value = subtotal;
@@ -82,6 +94,14 @@ function updateTotal() {
     });
 
     document.getElementById('total').value = total;
+    updateKembalian(); // Update return money when total changes
+}
+
+function updateKembalian() {
+    let totalBayar = parseInt(document.getElementById('total').value) || 0;
+    let totalDibayar = parseInt(document.getElementById('total_dibayar').value) || 0;
+    let kembalian = Math.max(totalDibayar - totalBayar, 0);
+    document.getElementById('kembalian').value = kembalian;
 }
 
 document.getElementById('add-barang').addEventListener('click', function() {
@@ -111,5 +131,7 @@ document.querySelectorAll('.remove-barang').forEach(button => {
 document.querySelectorAll('input[name="jumlah[]"], select[name="barang_id[]"]').forEach(input => {
     input.addEventListener('input', updateTotal);
 });
+
+document.getElementById('total_dibayar').addEventListener('input', updateKembalian);
 </script>
 @endsection

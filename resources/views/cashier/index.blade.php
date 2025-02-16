@@ -8,7 +8,7 @@
         ➕ Registrasi Member
     </a>
 
-    <a href="{{ route('penjualan-offline.create') }}" class="block bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-700">
+    <a href="{{ route('penjualan-offline.index') }}" class="block bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-700">
         💳 Transaksi Baru
     </a>
 </div>
