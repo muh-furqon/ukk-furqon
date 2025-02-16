@@ -33,11 +33,11 @@
                     <img src="{{ asset('image/' . $barang->foto) }}" alt="Foto Barang" class="w-16 h-16">
                 </td>
                 <td class="p-2 space-x-2">
-                    <a href="{{ route('barangs.show', $barang->id) }}" class="text-blue-500">Lihat</a>
-                    <a href="{{ route('barangs.edit', $barang->id) }}" class="text-yellow-500">Edit</a>
-                    <form action="{{ route('barangs.destroy', $barang->id) }}" method="POST" class="inline">
+                    <a href="{{ route('barangs.show', $barang->id) }}" class="bg-green-500 text-white px-3 py-1 rounded">Lihat</a>
+                    <a href="{{ route('barangs.edit', $barang->id) }}" class="bg-yellow-500 text-white px-3 py-1 rounded">Edit</a>
+                    <form action="{{ route('barangs.destroy', $barang->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Hapus barang ini?');">
                         @csrf @method('DELETE')
-                        <button type="submit" class="text-red-500">Hapus</button>
+                        <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded">Hapus</button>
                     </form>
                 </td>
             </tr>
