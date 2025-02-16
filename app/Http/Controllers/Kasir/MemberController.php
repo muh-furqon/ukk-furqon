@@ -14,12 +14,12 @@ class MemberController extends Controller
     public function index()
     {
         $members = Member::latest()->get(); // Fetch all members, latest first
-        return view('members.index', compact('members'));
+        return view('cashier.members.index', compact('members'));
     }
 
     public function create()
     {
-        return view('members.create'); // Show the registration form
+        return view('cashier.members.create'); // Show the registration form
     }
 
     public function store(Request $request)
@@ -65,7 +65,7 @@ class MemberController extends Controller
 
     public function edit(Member $member)
     {
-        return view('members.edit', compact('member'));
+        return view('cashier.members.edit', compact('member'));
     }
 
     public function update(Request $request, Member $member)
