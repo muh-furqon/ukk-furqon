@@ -27,6 +27,9 @@
 
 <div class="container mt-4">
     <h2 class="text-center mb-4">Daftar Produk</h2>
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{{ route('auth.logout') }}" class="btn btn-danger">Logout</a>
+    </div>    
 
     <!-- Filter Section -->
     <form method="GET" class="mb-3">

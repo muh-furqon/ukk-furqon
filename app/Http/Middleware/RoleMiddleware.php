@@ -25,8 +25,6 @@ class RoleMiddleware
             return redirect()->route('admin.index');
         } else if ($user->role === 'kasir'){
             return redirect()->route('cashier.index');
-        } else if ($user->role === 'pimpinan'){
-            return redirect()->route('pimpinan.index');
         } else {
             return redirect()->route('member.index');
         }
